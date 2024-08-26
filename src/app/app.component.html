@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>ZTE Password Extractor</h2>
+
+  <p>&nbsp;</p>
+  <p>Models that area confirmed to work: F660, F680 and F6600P</p>
+  <p>&nbsp;</p>
+
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="field1">Serial (ZTEGxxxxxxxx):</label>
+      <input type="text" id="field1" formControlName="serial" maxlength="12" name="serial" value="" required>
+    </div>
+    <div class="form-group">
+      <label for="field2">MAC Address (only numbers and letters):</label>
+      <input type="text" id="field2" formControlName="mac" maxlength="12" name="mac" value="" required>
+    </div>
+    <div class="form-group">
+      <label for="file">Config File (config.bin):</label>
+      <input type="file" id="file" (change)="onFileChange($event)" formControlName="config" name="config" accept="*.bin"
+        multiple="false" required>
+      <i>The file is not stored on the server</i>
+    </div>
+    <div class="form-group">
+      <input type="button" (click)="submit()" value="Get Passwords">
+    </div>
+  </form>
+</div>
+
+<ng-container *ngIf="(result || []).length > 0">
+  <div class="container">
+    <h2>Usernames and Passwords</h2>
+    <div class="form-group" *ngFor="let r of result">
+      <label>Username: <b>{{r.username}}</b></label>
+      <label>Password: <b>{{r.password}}</b></label>
+      <label>Level: <b>{{r.level}}</b></label>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="err">
+  <div class="container">
+    <h3 style="color: red;">{{err}}</h3>
+  </div>
+</ng-container>
+
+<br><br>
+<div style="text-align: center">Feedback/Contact: <a href="mailto:skuuzymaster@proton.me">skuuzymaster@proton.me</a>
+</div>
